@@ -13,7 +13,7 @@ jobs:
     #Cria os serviços para o teste
     services:
       #Executa o site
-      app:
+      site:
         image: nginx:stable-alpine
         ports:
           - 80:80
