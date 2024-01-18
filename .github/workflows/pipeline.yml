@@ -1,0 +1,55 @@
+name: Testando e publicando
+on: 
+  push:
+    branches:
+      - producao
+
+jobs:
+  #Processo de teste
+  test:
+    runs-on: ubuntu-latest
+    container: node:19
+
+    #Cria os serviços para o teste
+    services:
+      #Executa o site
+      app:
+        image: nginx:stable-alpine
+        ports:
+          - 80:80
+        volumes:
+          - .:/usr/share/nginx/html
+      
+      #Executa o Selenium Remoto
+      selenium:
+        image: selenium/standalone-chrome
+        options: --shm-size=2gb
+        ports:
+          - 4444:4444
+
+    steps:
+      - uses: actions/checkout@v4 #acessa o projeto
+      - name: Instala as dependencias
+        run: npm install
+
+      - name: Testando
+        run: npm test
+
+  #Processo de deploy
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Liberando acesso ao github
+        uses: actions/checkout@v4 
+
+      - name: Configura o git
+        run: |
+          git config --local user.email "carloswgama@gmail.com"
+          git config --local user.name "Carlos W. Gama"
+      - run: git fetch 
+      - run: git checkout -B gh-pages
+      - run: git merge main
+      - run: git push --force origin gh-pages
