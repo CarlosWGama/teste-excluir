@@ -13,9 +13,8 @@ jobs:
     #Cria os serviços para o teste
     services:
       #Executa o site
-      app:
+      site:
         image: nginx:stable-alpine
-        options: --add-host=host.docker.internal:host-gateway
         ports:
           - 80:80
         volumes:
@@ -24,7 +23,7 @@ jobs:
       #Executa o Selenium Remoto
       selenium:
         image: selenium/standalone-chrome
-        options: --shm-size=2gb --add-host=host.docker.internal:host-gateway
+        options: --shm-size=2gb 
         ports:
           - 4444:4444
 

@@ -8,7 +8,7 @@ describe('login', () => {
     test('logado com sucesso', async () => {
         const driver = await new Builder().forBrowser('chrome').usingServer('http://selenium:4444/wd/hub').build();
         
-        await driver.get('http://app:80/');
+        await driver.get('http://site:80/');
         //Login
         await driver.findElement(By.id('email')).sendKeys('teste@teste.com');
         await driver.findElement(By.id('password')).sendKeys('123456');
@@ -22,7 +22,7 @@ describe('login', () => {
     test('falha ao logar', async () => {
         const driver = await new Builder().forBrowser('chrome').usingServer('http://selenium:4444/wd/hub').build();
 
-        await driver.get('http://app:80/');
+        await driver.get('http://site:80/');
         //Login
         await driver.findElement(By.id('email')).sendKeys('errado@teste.com');
         await driver.findElement(By.id('password')).sendKeys('123456');
