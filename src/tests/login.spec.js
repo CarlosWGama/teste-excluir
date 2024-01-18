@@ -6,9 +6,11 @@ const { Builder, By } = require('selenium-webdriver');
 describe('login', () => {
   
     test('logado com sucesso', async () => {
-        const driver = await new Builder().forBrowser('chrome').usingServer('http://selenium:4444/wd/hub').build();
+        //const driver = await new Builder().forBrowser('chrome').usingServer('http://host.docker.internal:4444/wd/hub').build(); //docker compose
+        const driver = await new Builder().forBrowser('chrome').usingServer('http://selenium:4444/wd/hub').build(); //github actions
         
-        await driver.get('http://site:80/');
+        //await driver.get('http://host.docker.internal:80/'); //docker compose
+        await driver.get('http://app:80/'); //github actions
         //Login
         await driver.findElement(By.id('email')).sendKeys('teste@teste.com');
         await driver.findElement(By.id('password')).sendKeys('123456');
@@ -20,9 +22,11 @@ describe('login', () => {
     })
 
     test('falha ao logar', async () => {
-        const driver = await new Builder().forBrowser('chrome').usingServer('http://selenium:4444/wd/hub').build();
-
-        await driver.get('http://site:80/');
+        //const driver = await new Builder().forBrowser('chrome').usingServer('http://host.docker.internal:4444/wd/hub').build(); //docker compose
+        const driver = await new Builder().forBrowser('chrome').usingServer('http://selenium:4444/wd/hub').build(); //github actions
+        
+        //await driver.get('http://host.docker.internal:80/'); //docker compose
+        await driver.get('http://app:80/'); //github actions
         //Login
         await driver.findElement(By.id('email')).sendKeys('errado@teste.com');
         await driver.findElement(By.id('password')).sendKeys('123456');

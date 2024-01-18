@@ -13,7 +13,7 @@ jobs:
     #Cria os serviços para o teste
     services:
       #Executa o site
-      site:
+      app:
         image: nginx:stable-alpine
         ports:
           - 80:80
@@ -51,5 +51,5 @@ jobs:
           git config --local user.name "Carlos W. Gama"
       - run: git fetch 
       - run: git checkout -B gh-pages
-      - run: git merge main
+      - run: git merge producao
       - run: git push --force origin gh-pages
