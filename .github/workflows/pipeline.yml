@@ -15,6 +15,7 @@ jobs:
       #Executa o site
       app:
         image: nginx:stable-alpine
+        options: --add-host=host.docker.internal:host-gateway
         ports:
           - 80:80
         volumes:
@@ -23,7 +24,7 @@ jobs:
       #Executa o Selenium Remoto
       selenium:
         image: selenium/standalone-chrome
-        options: --shm-size=2gb
+        options: --shm-size=2gb --add-host=host.docker.internal:host-gateway
         ports:
           - 4444:4444
 
